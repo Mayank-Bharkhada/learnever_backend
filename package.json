@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run build-watch\" \"npm run start-server\"",
+    "fresh-start": "concurrently \"prisma migrate dev\" \"npm run build-watch\" \"npm run start-server\"",
     "build": "swc ./src -d ./dist",
     "build-watch": "swc ./src -d ./dist --watch",
     "start-server": "nodemon --exec node ./dist/src/app.js",
