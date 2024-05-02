@@ -1,8 +1,10 @@
-import { User } from "@prisma/client";
-import prisma from "../prisma/index.js";
+import {  User } from "@prisma/client";
+import loadPrisma from "../utils/importPrisma.js";
+
+const Prisma = loadPrisma as any;
 
 export const findUserById = async(id: number): Promise<User | null> => {
-  return await prisma.user.findFirst({
+  return await Prisma.user.findFirst({
     where: {
       id,
     },
@@ -10,7 +12,7 @@ export const findUserById = async(id: number): Promise<User | null> => {
 };
 
 export const findUserByEmail = async(email: string): Promise<User | null> => {
-  return await prisma.user.findFirst({
+  return await Prisma.user.findFirst({
     where: {
       email,
     },
@@ -19,7 +21,7 @@ export const findUserByEmail = async(email: string): Promise<User | null> => {
 
 export const createUser = async (body: User): Promise<User> => {
   const { name, email, password } = body;
-  return await prisma.user.create({
+  return await Prisma.user.create({
     data: {
       name,
       email,
