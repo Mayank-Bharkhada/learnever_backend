@@ -122,47 +122,73 @@ function _ts_generator(thisArg, body) {
         };
     }
 }
-import path from "path";
-var prismaPath = "./prisma/index.js";
-var __dirname = path.resolve(path.dirname(''), './');
-var prismaDynamicImportPath = path.resolve(__dirname, prismaPath);
-export default function Prisma() {
-    return _Prisma.apply(this, arguments);
-}
-function _Prisma() {
-    _Prisma = _async_to_generator(function() {
-        var prismaModule, prisma, error;
-        return _ts_generator(this, function(_state) {
-            switch(_state.label){
-                case 0:
-                    _state.trys.push([
-                        0,
-                        2,
-                        ,
-                        3
-                    ]);
-                    return [
-                        4,
-                        import(prismaDynamicImportPath)
-                    ];
-                case 1:
-                    prismaModule = _state.sent();
-                    // Access the default export of the module
-                    prisma = prismaModule.default;
-                    return [
-                        2,
-                        prisma
-                    ];
-                case 2:
-                    error = _state.sent();
-                    console.error("Error loading Prisma module:", error);
-                    throw error;
-                case 3:
-                    return [
-                        2
-                    ];
-            }
-        });
+import { PrismaClient } from "@prisma/client";
+var prisma = new PrismaClient();
+var roles = [
+    {
+        name: "user"
+    },
+    {
+        name: "admin"
+    }
+];
+_async_to_generator(function() {
+    var roleCount, e;
+    return _ts_generator(this, function(_state) {
+        switch(_state.label){
+            case 0:
+                _state.trys.push([
+                    0,
+                    4,
+                    5,
+                    7
+                ]);
+                return [
+                    4,
+                    prisma.role.count()
+                ];
+            case 1:
+                roleCount = _state.sent();
+                if (!(roleCount === 0)) return [
+                    3,
+                    3
+                ];
+                return [
+                    4,
+                    prisma.role.createMany({
+                        data: roles
+                    })
+                ];
+            case 2:
+                _state.sent();
+                console.log('========== Initial role data was inserted successfully. ==========');
+                _state.label = 3;
+            case 3:
+                return [
+                    3,
+                    7
+                ];
+            case 4:
+                e = _state.sent();
+                process.exit(1);
+                return [
+                    3,
+                    7
+                ];
+            case 5:
+                return [
+                    4,
+                    prisma.$disconnect()
+                ];
+            case 6:
+                _state.sent();
+                return [
+                    7
+                ];
+            case 7:
+                return [
+                    2
+                ];
+        }
     });
-    return _Prisma.apply(this, arguments);
-}
+})();

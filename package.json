@@ -6,16 +6,17 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run build-watch\" \"npm run start-server\"",
-    "fresh-start": "concurrently \"prisma migrate dev\" \"npm run build-watch\" \"npm run start-server\"",
+    "fresh-start": "concurrently \"prisma migrate dev\" \"npm run copy-prisma\" \"npm run build-watch\" \"npm run start-server\"",
     "build": "swc ./src -d ./dist",
     "build-watch": "swc ./src -d ./dist --watch",
     "start-server": "nodemon --exec node ./dist/src/app.js",
     "db-studio": "prisma studio",
     "db-seed": "prisma db seed",
-    "db-migrate:deploy": "prisma migrate deploy",
-    "db-migrate:dev": "prisma migrate dev",
-    "db-push": "prisma db push",
-    "generate": "prisma generate"
+    "db-migrate:deploy": "concurrently \"prisma migrate deploy\"  \"npm run copy-prisma\"",
+    "db-migrate:dev": "concurrently \"prisma migrate dev\"  \"npm run copy-prisma\"",
+    "db-push": "concurrently \"prisma db push\"  \"npm run copy-prisma\"",
+    "generate": "prisma generate",
+    "copy-prisma": "xcopy /E /I prisma src\\prisma"
   },
   "keywords": [],
   "author": "",

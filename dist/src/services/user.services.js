@@ -122,8 +122,7 @@ function _ts_generator(thisArg, body) {
         };
     }
 }
-import loadPrisma from "../utils/importPrisma.js";
-var Prisma = loadPrisma;
+import prisma from "../prisma/index.js";
 export var findUserById = function() {
     var _ref = _async_to_generator(function(id) {
         return _ts_generator(this, function(_state) {
@@ -131,7 +130,7 @@ export var findUserById = function() {
                 case 0:
                     return [
                         4,
-                        Prisma.user.findFirst({
+                        prisma.user.findFirst({
                             where: {
                                 id: id
                             }
@@ -156,7 +155,7 @@ export var findUserByEmail = function() {
                 case 0:
                     return [
                         4,
-                        Prisma.user.findFirst({
+                        prisma.user.findFirst({
                             where: {
                                 email: email
                             }
@@ -183,7 +182,7 @@ export var createUser = function() {
                     name = body.name, email = body.email, password = body.password;
                     return [
                         4,
-                        Prisma.user.create({
+                        prisma.user.create({
                             data: {
                                 name: name,
                                 email: email,
